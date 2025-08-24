@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create QR for Hot Pan Menu</title>
+<style>
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;background:#fafafa;color:#111827}
+  .wrap{max-width:720px;margin:0 auto;padding:16px}
+  .card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  input{width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;font-size:16px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  button,a.btn{border:1px solid #e5e7eb;background:#111827;color:#fff;border-radius:999px;padding:10px 14px;font-size:14px;text-decoration:none}
+  .qr{display:grid;place-content:center;border:1px dashed #e5e7eb;border-radius:12px;overflow:hidden;background:#fff;width:360px;height:360px}
+  .muted{font-size:12px;color:#6b7280}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Create QR for your Menu</h1>
+  <div class="card">
+    <p>1) Paste the FINAL hosted URL of your <b>index.html</b> below & hit <b>Update</b>.<br>2) Right‑click the QR image & choose <i>Save image as…</i> to print on table tents.</p>
+    <input id="url" placeholder="https://your-domain.com/menu/index.html" value="">
+    <div class="row">
+      <button onclick="updateQR()">Update</button>
+      <a class="btn" id="open" target="_blank" rel="noopener">Open link</a>
+    </div>
+    <div style="display:flex;gap:16px;align-items:flex-start;margin-top:16px;flex-wrap:wrap">
+      <div class="qr"><img id="qr" alt="QR code" referrerpolicy="no-referrer"></div>
+      <div class="muted">
+        Tip: For best print quality, set your QR size to 800×800 when generating from Google Charts.<br><br>
+        You can also print a small URL under the QR for backup.
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const qr = document.getElementById('qr');
+  const u = document.getElementById('url');
+  const openBtn = document.getElementById('open');
+  function updateQR(){
+    const link = u.value.trim();
+    if(!link){ alert('Enter your hosted menu URL first.'); return; }
+    const enc = encodeURIComponent(link);
+    qr.src = 'https://chart.googleapis.com/chart?cht=qr&chs=800x800&chl=' + enc;
+    openBtn.href = link;
+  }
+</script>
+</body>
+</html>
